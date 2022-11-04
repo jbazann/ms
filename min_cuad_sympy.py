@@ -1,3 +1,4 @@
+import sympy as s
 from sympy.abc import x
 
 def pol_gr(gr):
@@ -6,6 +7,15 @@ def pol_gr(gr):
         pol.append(x**i)
         
     return pol
+
+def nsincos(n):
+    freq = 1/0.006
+    func = [s.sin(0*x+s.pi*0.5)]
+    for i in range(1,n):
+        func.append(s.sin(i*freq*x))
+        func.append(s.cos(i*freq*x))
+    return func
+
 
 def min_cuad_Z(func,p):
     Z = []

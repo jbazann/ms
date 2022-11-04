@@ -4,7 +4,7 @@ import min_cuad_sympy as ms
 duracion_medido = 6/1e3 # s
 muestreo_modelo = 33.33/1e4 # s
 
-def min_cuad_sympy(x0,y,gr):
+def min_cuad_pol(x0,y,gr):
     Y = y
     Z = ms.min_cuad_Z(ms.pol_gr(gr),x0)
     ZT = np.transpose(Z)
@@ -14,6 +14,18 @@ def min_cuad_sympy(x0,y,gr):
     ZTY = np.array(ZTY,dtype='float64')
     c = np.linalg.solve(ZTZ,ZTY)
     return c
+
+def min_cuad_sin(x0,y,n):
+    Y = y
+    func = ms.nsincos(n)
+    Z = ms.min_cuad_Z(func,x0)
+    ZT = np.transpose(Z)
+    ZTZ = np.dot(ZT,Z)
+    ZTY = np.dot(ZT,Y)
+    ZTZ = np.array(ZTZ,dtype='float64')
+    ZTY = np.array(ZTY,dtype='float64')
+    c = np.linalg.solve(ZTZ,ZTY)
+    return func, c
 
 def medido():
     x = []
